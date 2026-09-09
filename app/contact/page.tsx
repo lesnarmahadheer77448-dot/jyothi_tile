@@ -134,7 +134,7 @@ export default function ContactPage() {
                     required
                     value={contactForm.name}
                     onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                    placeholder="e.g. Vikram Singhania"
+                    placeholder="e.g. Ysool"
                     className="w-full px-4 py-2.5 bg-[#181820] border border-[#2B2B38] rounded-lg text-white focus:outline-none focus:border-[#C5A880]"
                   />
                 </div>
@@ -157,7 +157,7 @@ export default function ContactPage() {
                       type="email"
                       value={contactForm.email}
                       onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                      placeholder="vikram@domain.com"
+                      placeholder="Ysool@domain.com"
                       className="w-full px-4 py-2.5 bg-[#181820] border border-[#2B2B38] rounded-lg text-white focus:outline-none focus:border-[#C5A880]"
                     />
                   </div>

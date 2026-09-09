@@ -89,7 +89,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const isArchitect = email.includes('architect') || email.includes('studio');
     const user: CustomerUser = {
       id: `usr-${Date.now()}`,
-      name: isArchitect ? 'Ar. Rahul Sen' : 'Vikram Singhania',
+      name: isArchitect ? 'Ar. Rahul Sen' : 'Ysool',
       email: email.trim(),
       phone: '9820012345',
       role: isArchitect ? 'architect' : 'homeowner',
@@ -136,15 +136,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Admin Authentication
   const loginAdmin = (email: string, password?: string) => {
-    // Default admin credentials: admin@jyothitiles.com / jyothi@2026
     const cleanEmail = email.trim().toLowerCase();
-    if (cleanEmail === 'admin@jyothitiles.com' || cleanEmail === 'admin' || (password && password.length >= 4)) {
+    
+    // Strict mock authentication for security
+    // In a production app, this would be an API call to a secure backend.
+    if (
+      cleanEmail === (process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'admin@jyothitiles.com') &&
+      password === (process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'jyothi@2026')
+    ) {
       setIsAdminAuthenticated(true);
       return true;
     }
-    // Allow demo entry
-    setIsAdminAuthenticated(true);
-    return true;
+    
+    return false;
   };
 
   const logoutAdmin = () => {

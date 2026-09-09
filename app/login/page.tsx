@@ -40,7 +40,7 @@ export default function CustomerLoginPage() {
     if (role === 'architect') {
       loginCustomer('rahul.sen@studiolotus.in', 'demo123');
     } else {
-      loginCustomer('vikram.singhania@gmail.com', 'demo123');
+      loginCustomer('Ysool.singhania@gmail.com', 'demo123');
     }
     router.push('/products');
   };

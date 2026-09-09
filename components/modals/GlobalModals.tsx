@@ -159,7 +159,7 @@ export const GlobalModals: React.FC = () => {
                         required
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        placeholder="e.g. Vikram Singhania"
+                        placeholder="e.g. Ysool"
                         className="w-full px-3.5 py-2.5 bg-[#1A1A1E] border border-[#2B2B33] rounded-lg text-sm text-white focus:outline-none focus:border-[#C5A880]"
                       />
                     </div>

@@ -271,79 +271,7 @@ export const HeroCinematic: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Emaar Signature Interactive Carousel Navigation Bar */}
-      <div className="relative z-20 pb-8 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#121216]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-2xl">
-          {/* 4 Interactive Segmented Tabs */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 flex-1">
-            {HERO_SCENES.map((scene, idx) => {
-              const isCurrent = idx === currentSceneIndex;
-              return (
-                <button
-                  key={scene.id}
-                  onClick={() => goToScene(idx)}
-                  className={`text-left p-2.5 sm:p-3 rounded-xl transition-all relative overflow-hidden group ${
-                    isCurrent ? 'bg-white/10 border border-[#C5A880]/50' : 'hover:bg-white/5 border border-transparent'
-                  }`}
-                >
-                  <span className={`text-[10px] sm:text-xs font-mono tracking-wider uppercase block truncate ${
-                    isCurrent ? 'text-[#C5A880] font-semibold' : 'text-[#A8A49A] group-hover:text-white'
-                  }`}>
-                    {scene.tabLabel}
-                  </span>
 
-                  {/* Continuous Progress Bar Line (Emaar Style) */}
-                  <div className="w-full h-0.5 bg-white/10 rounded-full mt-2 overflow-hidden">
-                    {isCurrent ? (
-                      <div
-                        className="h-full bg-gradient-to-r from-[#C5A880] to-[#E5D2B8] transition-all duration-75"
-                        style={{ width: `${progress}%` }}
-                      />
-                    ) : (
-                      <div className="h-full bg-transparent group-hover:bg-white/20 transition-all" />
-                    )}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Controls: Play/Pause, Prev/Next, Scene Index */}
-          <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 pt-3 md:pt-0 border-white/10">
-            {/* Scene Counter */}
-            <span className="text-xs font-mono text-[#DDD9CF] tracking-widest">
-              <span className="text-[#C5A880] font-semibold">0{currentSceneIndex + 1}</span> / 0{HERO_SCENES.length}
-            </span>
-
-            <div className="flex items-center gap-2">
-              {/* Play / Pause */}
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="w-9 h-9 rounded-lg bg-[#1D1D24] hover:bg-[#C5A880] text-white hover:text-black border border-white/10 flex items-center justify-center transition-all"
-                title={isPlaying ? 'Pause Auto Transition' : 'Play Auto Transition'}
-              >
-                {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
-              </button>
-
-              {/* Prev / Next Chevrons */}
-              <button
-                onClick={prevScene}
-                className="w-9 h-9 rounded-lg bg-[#1D1D24] hover:bg-[#2A2A35] text-white border border-white/10 flex items-center justify-center transition-colors"
-                title="Previous Scene"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={nextScene}
-                className="w-9 h-9 rounded-lg bg-[#1D1D24] hover:bg-[#2A2A35] text-white border border-white/10 flex items-center justify-center transition-colors"
-                title="Next Scene"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };

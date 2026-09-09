@@ -98,7 +98,7 @@ export default function CustomerSignupPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Vikram Singhania"
+                placeholder="e.g. Ysool"
                 className="w-full px-3.5 py-2.5 bg-[#181822] border border-[#2B2B38] rounded-xl text-white focus:outline-none focus:border-[#C5A880]"
               />
             </div>
@@ -124,7 +124,7 @@ export default function CustomerSignupPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="vikram@domain.com"
+                placeholder="Ysool@domain.com"
                 className="w-full px-3.5 py-2.5 bg-[#181822] border border-[#2B2B38] rounded-xl text-white focus:outline-none focus:border-[#C5A880]"
               />
             </div>

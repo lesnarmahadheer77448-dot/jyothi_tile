@@ -58,9 +58,9 @@ export default function AdminProductsManagerPage() {
   const [formData, setFormData] = useState<Partial<UnifiedSurface>>({
     name: '',
     sku: '',
-    category: 'tiles',
-    material: 'Glazed Vitrified (GVT)',
-    finish: 'High Gloss / Polished',
+    category: '',
+    material: '',
+    finish: '',
     colorFamily: 'White / Carrara',
     colorHex: '#F5F5F5',
     size: '120 × 180 cm',
@@ -85,9 +85,9 @@ export default function AdminProductsManagerPage() {
     setFormData({
       name: '',
       sku: `JT-SKU-${Math.floor(100 + Math.random() * 900)}`,
-      category: 'tiles',
-      material: 'Glazed Vitrified (GVT)',
-      finish: 'High Gloss / Polished',
+      category: '',
+      material: '',
+      finish: '',
       colorFamily: 'White / Carrara',
       colorHex: '#F5F5F5',
       size: '120 × 180 cm',
@@ -519,13 +519,13 @@ export default function AdminProductsManagerPage() {
                 <div>
                   <label className="block font-mono text-[10px] uppercase text-[#8E8A80] mb-1.5">Category *</label>
                   <select
-                    value={STANDARD_CATEGORIES.includes(formData.category as string) ? formData.category : 'custom'}
+                    value={formData.category === '' ? '' : (STANDARD_CATEGORIES.includes(formData.category as string) ? formData.category : 'custom')}
                     onChange={(e) => {
-                      if (e.target.value === 'custom') setFormData({ ...formData, category: '' as any });
-                      else setFormData({ ...formData, category: e.target.value as any });
+                      setFormData({ ...formData, category: e.target.value as any });
                     }}
                     className="w-full px-3 py-2 bg-[#1A1A24] border border-[#2D2D3E] rounded-xl text-white focus:outline-none focus:border-[#C5A880]"
                   >
+                    <option value="" disabled>Select Category...</option>
                     <option value="tiles">Porcelain Tiles</option>
                     <option value="slabs">Sintered Slabs (120×240)</option>
                     <option value="granite">Natural Granite Slabs</option>
@@ -533,7 +533,7 @@ export default function AdminProductsManagerPage() {
                     <option value="quartz">Engineered Quartz</option>
                     <option value="custom">Other (Custom...)</option>
                   </select>
-                  {(!STANDARD_CATEGORIES.includes(formData.category as string) || formData.category === '') && (
+                  {(formData.category === 'custom' || (!STANDARD_CATEGORIES.includes(formData.category as string) && formData.category !== '')) && (
                     <input
                       type="text"
                       placeholder="Type custom category..."
@@ -548,13 +548,13 @@ export default function AdminProductsManagerPage() {
                 <div>
                   <label className="block font-mono text-[10px] uppercase text-[#8E8A80] mb-1.5">Material Composition *</label>
                   <select
-                    value={STANDARD_MATERIALS.includes(formData.material as string) ? formData.material : 'custom'}
+                    value={formData.material === '' ? '' : (STANDARD_MATERIALS.includes(formData.material as string) ? formData.material : 'custom')}
                     onChange={(e) => {
-                      if (e.target.value === 'custom') setFormData({ ...formData, material: '' as any });
-                      else setFormData({ ...formData, material: e.target.value as any });
+                      setFormData({ ...formData, material: e.target.value as any });
                     }}
                     className="w-full px-3 py-2 bg-[#1A1A24] border border-[#2D2D3E] rounded-xl text-white focus:outline-none focus:border-[#C5A880]"
                   >
+                    <option value="" disabled>Select Material...</option>
                     <option value="Glazed Vitrified (GVT)">Glazed Vitrified (GVT)</option>
                     <option value="Polished Glazed Vitrified (PGVT)">Polished Glazed Vitrified (PGVT)</option>
                     <option value="Full Body Porcelain">Full Body Porcelain</option>
@@ -563,7 +563,7 @@ export default function AdminProductsManagerPage() {
                     <option value="Imported Italian Marble">Imported Italian Marble</option>
                     <option value="custom">Other (Custom...)</option>
                   </select>
-                  {(!STANDARD_MATERIALS.includes(formData.material as string) || formData.material === '') && (
+                  {(formData.material === 'custom' || (!STANDARD_MATERIALS.includes(formData.material as string) && formData.material !== '')) && (
                     <input
                       type="text"
                       placeholder="Type custom material..."
@@ -578,13 +578,13 @@ export default function AdminProductsManagerPage() {
                 <div>
                   <label className="block font-mono text-[10px] uppercase text-[#8E8A80] mb-1.5">Surface Finish *</label>
                   <select
-                    value={STANDARD_FINISHES.includes(formData.finish as string) ? formData.finish : 'custom'}
+                    value={formData.finish === '' ? '' : (STANDARD_FINISHES.includes(formData.finish as string) ? formData.finish : 'custom')}
                     onChange={(e) => {
-                      if (e.target.value === 'custom') setFormData({ ...formData, finish: '' as any });
-                      else setFormData({ ...formData, finish: e.target.value as any });
+                      setFormData({ ...formData, finish: e.target.value as any });
                     }}
                     className="w-full px-3 py-2 bg-[#1A1A24] border border-[#2D2D3E] rounded-xl text-white focus:outline-none focus:border-[#C5A880]"
                   >
+                    <option value="" disabled>Select Finish...</option>
                     <option value="High Gloss / Polished">High Gloss / Polished</option>
                     <option value="Silk Matte">Silk Matte & Cashmere</option>
                     <option value="Carving & Fluted">3D Carving & Fluted</option>
@@ -593,7 +593,7 @@ export default function AdminProductsManagerPage() {
                     <option value="Anti-Skid / R11 Rustic">Anti-Skid / R11 Rustic</option>
                     <option value="custom">Other (Custom...)</option>
                   </select>
-                  {(!STANDARD_FINISHES.includes(formData.finish as string) || formData.finish === '') && (
+                  {(formData.finish === 'custom' || (!STANDARD_FINISHES.includes(formData.finish as string) && formData.finish !== '')) && (
                     <input
                       type="text"
                       placeholder="Type custom finish..."

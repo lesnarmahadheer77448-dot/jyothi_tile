@@ -413,7 +413,7 @@ export default function AdminBillingPage() {
                       required
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
-                      placeholder="e.g. Ar. Vikram Singhania"
+                      placeholder="e.g. Ar. Ysool"
                       className="w-full px-3 py-2 bg-[#181822] border border-[#2B2B38] rounded-xl text-white focus:outline-none focus:border-[#C5A880]"
                     />
                   </div>
