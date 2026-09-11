@@ -294,10 +294,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="p-3 bg-[#121217] rounded-xl border border-[#222230] flex items-center justify-between">
               <div className="flex items-center gap-3 min-w-0">
                 <div className="w-8 h-8 rounded-full bg-[#C5A880]/20 border border-[#C5A880]/40 flex items-center justify-center text-[#C5A880] font-serif-luxury font-bold text-xs flex-shrink-0">
-                  JT
+                  YS
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-white font-medium truncate">Atelier Manager</p>
+                  <p className="text-xs text-white font-medium truncate">Ysool (Admin)</p>
                   <p className="text-[10px] text-[#25D366] font-mono flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
                     Terminal Live

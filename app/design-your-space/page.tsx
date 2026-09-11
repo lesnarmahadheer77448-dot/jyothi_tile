@@ -194,7 +194,7 @@ export default function DesignYourSpacePage() {
                     }`}
                   >
                     <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-black mb-3">
-                      <Image src={prod.textureImage} alt={prod.name} fill className="object-cover" />
+                      <Image src={prod.textureImage || prod.mainImage || ''} alt={prod.name} fill className="object-cover" />
                     </div>
                     <span className="text-[10px] font-mono text-[#C5A880] uppercase">{prod.material}</span>
                     <h4 className="font-serif-luxury text-base text-white font-medium truncate">{prod.name}</h4>

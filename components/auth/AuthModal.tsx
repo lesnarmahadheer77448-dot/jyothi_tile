@@ -59,7 +59,7 @@ export default function AuthModal() {
     if (type === 'architect') {
       loginCustomer('rahul.sen@studiolotus.in', 'demo123');
     } else {
-      loginCustomer('Ysool.singhania@gmail.com', 'demo123');
+      loginCustomer('ysool@gmail.com', 'demo123');
     }
   };
 

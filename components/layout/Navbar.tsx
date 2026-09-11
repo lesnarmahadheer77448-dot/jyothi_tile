@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  const navLinks: { name: string; href: string; hasMega: boolean; id?: string; badge?: string }[] = [
     { name: 'SPACES', href: '/products', hasMega: true, id: 'spaces' },
   ];
 
@@ -220,13 +220,13 @@ export const Navbar: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <button
-                  onClick={() => openAuthModal('login')}
+                <Link
+                  href="/admin/login"
                   className="hidden sm:flex items-center gap-1 px-3 py-1.5 text-xs font-mono text-[#DDD8CE] hover:text-white border border-[#2B2B38] hover:border-[#C5A880] rounded-lg transition-colors"
                 >
                   <User className="w-3.5 h-3.5 text-[#C5A880]" />
-                  <span>Sign In</span>
-                </button>
+                  <span>Admin Login</span>
+                </Link>
               )}
 
               {/* Primary Get A Quote Button */}

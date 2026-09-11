@@ -65,7 +65,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
     const message = `Hello Jyothi Tiles Atelier,%0A%0AI am reviewing the *${encodeURIComponent(
       product.name
     )}* (SKU: ${product.sku}, Size: ${product.size}, Finish: ${encodeURIComponent(
-      product.finish
+      product.finish || ''
     )}) on your digital showroom:%0A${encodeURIComponent(window.location.href)}%0A%0APlease provide availability, sample dispatch, and trade quotation.`;
     window.open(`https://wa.me/919626547707?text=${message}`, '_blank');
   };
@@ -80,7 +80,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
           <Link href="/products" className="hover:text-white transition-colors">COLLECTION</Link>
           <span>/</span>
           <Link href={`/collections/${product.collectionId}`} className="hover:text-white transition-colors">
-            {product.collectionName.toUpperCase()}
+            {(product.collectionName || '').toUpperCase()}
           </Link>
           <span>/</span>
           <span className="text-[#C5A880] truncate">{product.name.toUpperCase()}</span>
@@ -91,7 +91,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
           {/* Left Column: Gallery & In-Depth Specs (7 Cols) */}
           <div className="lg:col-span-7 space-y-10">
             {/* Gallery */}
-            <ProductGallery product={product} />
+            <ProductGallery product={product as any} />
 
             {/* Editorial Narrative */}
             <div className="bg-[#141418] border border-[#272732] rounded-2xl p-6 sm:p-8 space-y-4">
@@ -107,7 +107,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             </div>
 
             {/* Technical ISO Specifications */}
-            <TechnicalSpecs product={product} />
+            <TechnicalSpecs product={product as any} />
           </div>
 
           {/* Right Column: Pricing, Actions, Calculator & Shop The Look (5 Cols) */}
@@ -141,7 +141,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               {/* Primary Action Buttons */}
               <div className="space-y-3">
                 <button
-                  onClick={() => openQuoteModal(product)}
+                  onClick={() => openQuoteModal(product as any)}
                   className="w-full py-4 bg-[#C5A880] hover:bg-[#D6BC97] text-black font-semibold text-xs tracking-widest uppercase rounded-lg shadow-xl shadow-[#C5A880]/20 transition-all duration-200"
                 >
                   Request Bespoke Quotation
@@ -159,7 +159,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               {/* Secondary Actions */}
               <div className="pt-2">
                 <button
-                  onClick={() => toggleWishlist(product)}
+                  onClick={() => toggleWishlist(product as any)}
                   className={`w-full p-3 rounded-lg border text-center text-xs font-mono flex items-center justify-center gap-1.5 transition-colors ${
                     isSaved
                       ? 'bg-red-500/20 text-red-400 border-red-500/40'
@@ -172,7 +172,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               </div>
 
               <button
-                onClick={() => (isCompared ? removeFromCompare(product.id) : addToCompare(product))}
+                onClick={() => (isCompared ? removeFromCompare(product.id) : addToCompare(product as any))}
                 className={`w-full py-2.5 rounded-lg border text-xs font-mono flex items-center justify-center gap-2 transition-colors ${
                   isCompared
                     ? 'bg-[#C5A880]/20 text-[#C5A880] border-[#C5A880]/50'
@@ -185,7 +185,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
             </div>
 
             {/* Area & Box Calculator */}
-            <TileCalculator product={product} />
+            <TileCalculator product={product as any} />
 
             {/* "Shop The Look" / Matching Material Recommendation */}
             {matchingGranite && (

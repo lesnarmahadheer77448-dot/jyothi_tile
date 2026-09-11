@@ -150,16 +150,26 @@ export const HeroCinematic: React.FC = () => {
   }, [isPlaying, currentSceneIndex]);
 
   // Video playback management
+  const timeoutRefs = useRef<{ [key: number]: NodeJS.Timeout }>({});
+
   useEffect(() => {
     videoRefs.current.forEach((vid, idx) => {
       if (vid) {
         if (idx === currentSceneIndex && isPlaying) {
+          if (timeoutRefs.current[idx]) {
+            clearTimeout(timeoutRefs.current[idx]);
+          }
           vid.currentTime = 0;
           vid.play().catch(() => {
             // Autoplay policy fallback handled gracefully
           });
         } else {
-          vid.pause();
+          // Allow the outgoing video to play during the crossfade before pausing
+          timeoutRefs.current[idx] = setTimeout(() => {
+            if (vid) {
+              vid.pause();
+            }
+          }, 1200);
         }
       }
     });
@@ -176,13 +186,9 @@ export const HeroCinematic: React.FC = () => {
           return (
             <div
               key={scene.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                isActive ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 pointer-events-none z-0'
+              className={`absolute inset-0 transition-all duration-[1200ms] ease-in-out ${
+                isActive ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-105 pointer-events-none'
               }`}
-              style={{
-                transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 8s ease-out',
-                transform: isActive ? 'scale(1)' : 'scale(1.08)',
-              }}
             >
               {/* HTML5 Video Layer */}
               {scene.videoUrl && (

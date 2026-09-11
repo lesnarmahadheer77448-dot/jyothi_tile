@@ -70,7 +70,7 @@ function ProductsCatalogContent() {
         const matchesName = item.name.toLowerCase().includes(q);
         const matchesSku = item.sku.toLowerCase().includes(q);
         const matchesDesc = item.description.toLowerCase().includes(q);
-        const matchesTags = item.tags.some((t) => t.toLowerCase().includes(q));
+        const matchesTags = item.tags?.some((t) => t.toLowerCase().includes(q)) ?? false;
         if (!matchesName && !matchesSku && !matchesDesc && !matchesTags) return false;
       }
 
@@ -82,7 +82,7 @@ function ProductsCatalogContent() {
       // Spaces
       if (filters.spaces.length > 0) {
         if ('suitableSpaces' in item) {
-          const hasSpace = item.suitableSpaces.some((s) => filters.spaces.includes(s));
+          const hasSpace = item.suitableSpaces?.some((s) => filters.spaces.includes(s)) ?? false;
           if (!hasSpace) return false;
         } else {
           // Granite applications mapping
@@ -98,9 +98,9 @@ function ProductsCatalogContent() {
       // Finishes
       if (filters.finishes.length > 0) {
         if ('finish' in item) {
-          if (!filters.finishes.includes(item.finish)) return false;
+          if (!filters.finishes.includes(item.finish as string)) return false;
         } else {
-          const hasFin = item.finishesAvailable.some((f) => filters.finishes.includes(f as any));
+          const hasFin = item.finishesAvailable?.some((f) => filters.finishes.includes(f as any)) ?? false;
           if (!hasFin) return false;
         }
       }
@@ -108,7 +108,7 @@ function ProductsCatalogContent() {
       // Sizes
       if (filters.sizes.length > 0) {
         if ('size' in item) {
-          if (!filters.sizes.includes(item.size)) return false;
+          if (!filters.sizes.includes(item.size as string)) return false;
         }
       }
 

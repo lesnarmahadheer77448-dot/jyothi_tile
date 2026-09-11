@@ -676,7 +676,7 @@ export default function AdminBillingPage() {
                     LUXURY DIGITAL SHOWROOM & NATURAL STONE ATELIER
                   </p>
                   <p className="text-[11px] text-[#444] mt-2 leading-relaxed">
-                    Atelier 01, Ground Floor, Design District, Senapati Bapat Marg, Mumbai<br />
+                    T.S. No: 2195/2B, West 4th Street, Pudukkottai, Tamil Nadu 622001<br />
                     Phone: +91 96265 47707 | Email: concierge@jyothitiles.com<br />
                     GSTIN: 27AABCT9982Z1Z0
                   </p>

@@ -45,7 +45,7 @@ export default function ContactPage() {
             </div>
             <h3 className="font-serif-luxury text-lg text-white">Direct Advisory</h3>
             <p className="text-xs text-[#8E8A81]">Mon – Sat from 9:30 AM to 7:30 PM</p>
-            <p className="text-sm font-mono text-white font-semibold pt-1">+91 98200 12345</p>
+            <p className="text-sm font-mono text-white font-semibold pt-1">+91 96265 47707</p>
           </div>
 
           <div className="p-8 rounded-3xl bg-[#121217] border border-[#242430] space-y-3 shadow-xl">
@@ -147,7 +147,7 @@ export default function ContactPage() {
                       required
                       value={contactForm.phone}
                       onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                      placeholder="+91 98200..."
+                      placeholder="+91 96265..."
                       className="w-full px-4 py-2.5 bg-[#181820] border border-[#2B2B38] rounded-lg text-white focus:outline-none focus:border-[#C5A880]"
                     />
                   </div>

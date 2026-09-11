@@ -76,26 +76,13 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose, navLinks 
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              onClick={() => {
-                onClose();
-                openAuthModal('login');
-              }}
-              className="py-2.5 bg-[#181822] border border-[#2B2B38] text-white text-xs font-mono rounded-lg"
-            >
-              Sign In
-            </button>
-            <button
-              onClick={() => {
-                onClose();
-                openAuthModal('signup');
-              }}
-              className="py-2.5 bg-[#C5A880]/20 border border-[#C5A880]/40 text-[#C5A880] text-xs font-mono rounded-lg"
-            >
-              Create Account
-            </button>
-          </div>
+          <Link
+            href="/admin/login"
+            onClick={onClose}
+            className="w-full py-2.5 bg-[#181822] border border-[#2B2B38] text-[#DDD8CE] hover:text-white text-xs font-mono rounded-lg flex items-center justify-center gap-2"
+          >
+            Admin Login
+          </Link>
         )}
 
         <button
