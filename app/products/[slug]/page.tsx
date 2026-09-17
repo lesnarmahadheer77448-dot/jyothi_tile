@@ -140,7 +140,9 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               <div className="p-4 bg-[#1B1B22] border border-[#2B2B38] rounded-xl flex items-center justify-between">
                 <div>
                   <span className="text-[10px] uppercase font-mono text-[#7D7A73] block">Architectural Guide Rate</span>
-                  <span className="text-lg font-serif-luxury text-[#E5D2B8] font-semibold">{product.priceSqFtEstimate}</span>
+                  <span className="text-lg font-serif-luxury text-[#E5D2B8] font-semibold">
+                    {product.priceSqFtEstimate || 'By Quotation'}
+                  </span>
                 </div>
                 <span className="text-[10px] font-mono bg-[#C5A880]/20 text-[#C5A880] px-2.5 py-1 rounded border border-[#C5A880]/40">
                   {product.stockStatus}

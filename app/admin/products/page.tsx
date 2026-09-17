@@ -118,7 +118,7 @@ export default function AdminProductsManagerPage() {
     setEditingProduct(product);
     setFormData({
       ...product,
-      unitPrice: product.unitPrice || Number(product.priceSqFtEstimate?.replace(/[^0-9]/g, '')?.slice(0, 3) || 185),
+      unitPrice: product.unitPrice !== undefined ? product.unitPrice : (product.priceSqFtEstimate ? Number(product.priceSqFtEstimate.replace(/[^0-9]/g, '')) : undefined),
     });
   };
 
@@ -129,7 +129,7 @@ export default function AdminProductsManagerPage() {
       return;
     }
 
-    const priceSqFtEstimate = formData.unitPrice ? `₹${formData.unitPrice} / sq.ft` : formData.priceSqFtEstimate;
+    const priceSqFtEstimate = formData.unitPrice ? `₹${formData.unitPrice} / sq.ft` : '';
     addProduct({
       ...formData,
       priceSqFtEstimate,
@@ -144,7 +144,7 @@ export default function AdminProductsManagerPage() {
     e.preventDefault();
     if (!editingProduct) return;
 
-    const priceSqFtEstimate = formData.unitPrice ? `₹${formData.unitPrice} / sq.ft` : formData.priceSqFtEstimate;
+    const priceSqFtEstimate = formData.unitPrice ? `₹${formData.unitPrice} / sq.ft` : '';
     updateProduct(editingProduct.id, {
       ...formData,
       priceSqFtEstimate,

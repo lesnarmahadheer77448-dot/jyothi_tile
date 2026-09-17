@@ -104,9 +104,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, featured = fa
         <div className="space-y-4 pt-4 border-t border-[#24242C]">
           {/* Price Range */}
           <div className="flex items-center justify-between">
-            <span className="text-[10px] uppercase font-mono tracking-wider text-[#737068]">Starting from</span>
-            <span className="text-sm font-semibold text-[#E8D6C0]">
-              {(product as any).priceSqFtEstimate} <span className="text-[10px] text-[#8A8780] font-normal">/ sq.ft</span>
+            <span className="text-[10px] uppercase font-mono tracking-wider text-[#737068]">
+              {(product as any).priceSqFtEstimate ? 'Starting from' : 'Guide Price'}
+            </span>
+            <span className="text-sm font-semibold text-[#E8D6C0] font-mono">
+              {(product as any).priceSqFtEstimate || ((product as any).priceBand ? (product as any).priceBand : 'By Quotation')}
             </span>
           </div>
 
