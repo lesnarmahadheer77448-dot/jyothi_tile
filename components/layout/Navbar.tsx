@@ -130,13 +130,13 @@ export const Navbar: React.FC = () => {
             </nav>
 
             {/* Right Action Icons & Quote CTA */}
-            <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className="flex items-center space-x-1.5 sm:space-x-4">
 
 
               {/* Compare Tray Trigger */}
               <button
                 onClick={() => setIsDrawerOpen(true)}
-                className="relative p-2 text-[#DDD9D0] hover:text-[#C5A880] transition-colors"
+                className="relative p-1.5 sm:p-2 text-[#DDD9D0] hover:text-[#C5A880] transition-colors"
                 title="Compare Surfaces"
               >
                 <Layers className="w-4 h-4" />
@@ -150,7 +150,7 @@ export const Navbar: React.FC = () => {
               {/* Wishlist Moodboard */}
               <Link
                 href="/wishlist"
-                className="relative p-2 text-[#DDD9D0] hover:text-[#C5A880] transition-colors"
+                className="relative p-1.5 sm:p-2 text-[#DDD9D0] hover:text-[#C5A880] transition-colors"
                 title="My Saved Surfaces"
               >
                 <Heart className="w-4 h-4" />
@@ -232,7 +232,7 @@ export const Navbar: React.FC = () => {
               {/* Primary Get A Quote Button */}
               <button
                 onClick={() => openQuoteModal()}
-                className="px-4 py-2 bg-[#C5A880] hover:bg-[#D6BC97] text-black text-xs font-semibold tracking-widest uppercase rounded-sm transition-all duration-200 shadow-md shadow-[#C5A880]/15"
+                className="hidden md:block px-4 py-2 bg-[#C5A880] hover:bg-[#D6BC97] text-black text-xs font-semibold tracking-widest uppercase rounded-sm transition-all duration-200 shadow-md shadow-[#C5A880]/15"
               >
                 GET A QUOTE
               </button>
@@ -240,7 +240,7 @@ export const Navbar: React.FC = () => {
               {/* Mobile Hamburger Menu Toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="xl:hidden p-2 text-white hover:text-[#C5A880] transition-colors"
+                className="xl:hidden p-1.5 sm:p-2 text-white hover:text-[#C5A880] transition-colors"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
