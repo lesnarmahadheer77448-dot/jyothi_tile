@@ -76,11 +76,11 @@ export const Navbar: React.FC = () => {
               )}
               {/* Brand Logo */}
               <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded border border-[#C5A880]/60 flex items-center justify-center bg-black/40 group-hover:border-[#C5A880] transition-colors">
-                  <span className="font-serif-luxury text-[#C5A880] text-xs sm:text-sm font-semibold tracking-tighter">J</span>
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded border border-[#C5A880]/60 flex items-center justify-center bg-black/40 group-hover:border-[#C5A880] transition-colors">
+                  <span className="font-serif-luxury text-[#C5A880] text-[10px] sm:text-sm font-semibold tracking-tighter">J</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-serif-luxury text-base sm:text-xl tracking-[0.2em] text-[#F8F6F0] font-light leading-none group-hover:text-[#C5A880] transition-colors">
+                  <span className="font-serif-luxury text-sm sm:text-xl tracking-[0.2em] text-[#F8F6F0] font-light leading-none group-hover:text-[#C5A880] transition-colors">
                     JYOTHI TILES
                   </span>
                   <span className="text-[7px] sm:text-[9px] tracking-[0.3em] text-[#A09D95] uppercase font-sans-luxury mt-0.5 whitespace-nowrap">
@@ -130,13 +130,13 @@ export const Navbar: React.FC = () => {
             </nav>
 
             {/* Right Action Icons & Quote CTA */}
-            <div className="flex items-center space-x-1.5 sm:space-x-4">
+            <div className="flex items-center space-x-1 sm:space-x-4">
 
 
               {/* Compare Tray Trigger */}
               <button
                 onClick={() => setIsDrawerOpen(true)}
-                className="relative p-1.5 sm:p-2 text-[#DDD9D0] hover:text-[#C5A880] transition-colors"
+                className="relative p-2.5 sm:p-2 text-[#DDD9D0] hover:text-[#C5A880] transition-colors"
                 title="Compare Surfaces"
               >
                 <Layers className="w-4 h-4" />
@@ -150,7 +150,7 @@ export const Navbar: React.FC = () => {
               {/* Wishlist Moodboard */}
               <Link
                 href="/wishlist"
-                className="relative p-1.5 sm:p-2 text-[#DDD9D0] hover:text-[#C5A880] transition-colors"
+                className="relative p-2.5 sm:p-2 text-[#DDD9D0] hover:text-[#C5A880] transition-colors"
                 title="My Saved Surfaces"
               >
                 <Heart className="w-4 h-4" />
@@ -176,7 +176,7 @@ export const Navbar: React.FC = () => {
               {currentUser ? (
                 <div className="relative group">
                   <button
-                    className="flex items-center gap-2 p-1.5 sm:px-3 sm:py-1.5 rounded-full bg-[#1A1A22] border border-[#C5A880]/40 hover:border-[#C5A880] transition-colors"
+                    className="flex items-center gap-2 p-2 sm:px-3 sm:py-1.5 rounded-full bg-[#1A1A22] border border-[#C5A880]/40 hover:border-[#C5A880] transition-colors"
                     title="User Account"
                   >
                     <div className="w-6 h-6 rounded-full bg-[#C5A880]/20 text-[#C5A880] flex items-center justify-center font-serif-luxury font-bold text-xs">
@@ -240,7 +240,7 @@ export const Navbar: React.FC = () => {
               {/* Mobile Hamburger Menu Toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="xl:hidden p-1.5 sm:p-2 text-white hover:text-[#C5A880] transition-colors"
+                className="xl:hidden p-2.5 sm:p-2 text-white hover:text-[#C5A880] transition-colors"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>

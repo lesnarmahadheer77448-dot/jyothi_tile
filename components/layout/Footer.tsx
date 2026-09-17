@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
 
 
         {/* 4-Column Directory Grid */}
-        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 border-b border-[#1E1E24]">
+        <div className="py-12 sm:py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-8 border-b border-[#1E1E24]">
           {/* Col 1: Brand */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
@@ -59,9 +59,9 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright & disclaimer */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#737068]">
-          <p>© {new Date().getFullYear()} Jyothi Tiles & Natural Stone Atelier. All architectural rights reserved.</p>
-          <div className="flex items-center space-x-6">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] sm:text-[11px] text-[#737068] text-center sm:text-left">
+          <p>© {new Date().getFullYear()} Jyothi Tiles & Natural Stone Atelier. All rights reserved.</p>
+          <div className="flex flex-wrap items-center justify-center sm:justify-end space-x-4 sm:space-x-6">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Specification</Link>
           </div>

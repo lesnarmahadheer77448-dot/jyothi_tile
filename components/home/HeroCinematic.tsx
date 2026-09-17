@@ -219,6 +219,7 @@ export const HeroCinematic: React.FC = () => {
                   src={scene.fallbackImage}
                   alt={scene.headlineLine1}
                   fill
+                  sizes="100vw"
                   priority={idx === 0}
                   className={`object-cover object-center brightness-60 -z-10 ${scene.videoUrl ? 'hidden md:block' : 'block'}`}
                 />
@@ -247,11 +248,11 @@ export const HeroCinematic: React.FC = () => {
       <div className="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 my-auto py-6">
         <div className="max-w-3xl space-y-6">
           {/* Animated Headline */}
-          <div className="space-y-1">
-            <h2 className="font-serif-luxury text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.05] drop-shadow-2xl">
+          <div className="space-y-1 sm:space-y-2">
+            <h2 className="font-serif-luxury text-[1.75rem] leading-none sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-white drop-shadow-2xl">
               {currentScene.headlineLine1}
             </h2>
-            <h1 className="font-serif-luxury text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-normal italic gold-gradient-text tracking-wide leading-[1.08]">
+            <h1 className="font-serif-luxury text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-normal italic gold-gradient-text tracking-wide leading-tight">
               {currentScene.headlineLine2}
             </h1>
           </div>
@@ -273,9 +274,9 @@ export const HeroCinematic: React.FC = () => {
           </div>
 
           {/* Spec Pills */}
-          <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-6 sm:gap-10">
+          <div className="pt-6 border-t border-white/10 flex flex-wrap items-center gap-4 sm:gap-10">
             {currentScene.specs.map((s) => (
-              <div key={s.label} className="space-y-0.5">
+              <div key={s.label} className="space-y-0.5 min-w-[30%]">
                 <span className="text-[9px] font-mono text-[#9E9A90] uppercase tracking-widest block">
                   {s.label}
                 </span>

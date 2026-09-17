@@ -30,12 +30,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, featured = fa
   return (
     <div className="group relative bg-[#131317] border border-[#24242C] hover:border-[#C5A880]/60 rounded-2xl overflow-hidden flex flex-col transition-all duration-500 hover:shadow-2xl hover:shadow-black/80">
       {/* Top Image Container */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-950">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-950">
         <Link href={detailUrl} className="block w-full h-full">
           <Image
             src={product.mainImage}
             alt={product.name}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center group-hover:scale-108 transition-transform duration-700 brightness-90 group-hover:brightness-100"
           />
         </Link>

@@ -40,6 +40,7 @@ export const SpaceExplorer: React.FC = () => {
                 src={space.heroImage}
                 alt={space.name}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 className="object-cover object-center group-hover:scale-110 transition-transform duration-700 brightness-75 group-hover:brightness-90"
               />
             ) : (
