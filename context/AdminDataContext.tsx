@@ -490,7 +490,7 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       thicknessMm: newSurface.thicknessMm || 9,
       application: newSurface.application || ['Floor', 'Wall'],
       suitableSpaces: newSurface.suitableSpaces || ['living-room', 'bathroom'],
-      priceSqFtEstimate: newSurface.priceSqFtEstimate || `₹${newSurface.unitPrice || 175} / sq.ft`,
+      priceSqFtEstimate: newSurface.priceSqFtEstimate !== undefined ? newSurface.priceSqFtEstimate : `₹${newSurface.unitPrice || 175} / sq.ft`,
       priceBand: newSurface.priceBand || 'Premium Range',
       priceType: 'quote',
       waterAbsorption: newSurface.waterAbsorption || '< 0.02%',
@@ -516,7 +516,7 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       warehouseBin: newSurface.warehouseBin || 'Bay-A1',
       batchLotNumber: newSurface.batchLotNumber || `Batch #LOT-${Math.floor(100 + Math.random() * 900)}-GVT`,
       minThreshold: newSurface.minThreshold || 30,
-      unitPrice: newSurface.unitPrice || 175,
+      unitPrice: newSurface.unitPrice !== undefined ? newSurface.unitPrice : 175,
     };
 
     await setDoc(doc(db, 'products', id), productItem);
@@ -530,7 +530,13 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (updatedFields.stockQuantityBoxes !== undefined && item.boxCoverageSqFt) {
       updated.stockSqFt = updatedFields.stockQuantityBoxes * item.boxCoverageSqFt;
     }
-    await setDoc(doc(db, 'products', id), updated, { merge: true });
+
+    // Firebase setDoc throws error on undefined values, so we must remove or nullify them
+    const safeUpdate = Object.fromEntries(
+      Object.entries(updated).map(([key, value]) => [key, value === undefined ? null : value])
+    );
+
+    await setDoc(doc(db, 'products', id), safeUpdate, { merge: true });
   };
 
   const deleteProduct = async (id: string) => {
