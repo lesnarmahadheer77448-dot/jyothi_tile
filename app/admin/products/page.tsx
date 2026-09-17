@@ -638,12 +638,11 @@ export default function AdminProductsManagerPage() {
                   />
                 </div>
                 <div>
-                  <label className="block font-mono text-[10px] uppercase text-[#8E8A80] mb-1.5">Rate (₹ / sq.ft) *</label>
+                  <label className="block font-mono text-[10px] uppercase text-[#8E8A80] mb-1.5">Rate (₹ / sq.ft)</label>
                   <input
                     type="number"
-                    required
-                    value={formData.unitPrice || 185}
-                    onChange={(e) => setFormData({ ...formData, unitPrice: Number(e.target.value) })}
+                    value={formData.unitPrice || ''}
+                    onChange={(e) => setFormData({ ...formData, unitPrice: e.target.value ? Number(e.target.value) : undefined })}
                     className="w-full px-3 py-2 bg-[#1A1A24] border border-[#2D2D3E] rounded-xl font-mono text-[#C5A880] font-semibold"
                   />
                 </div>
