@@ -491,7 +491,7 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       application: newSurface.application || ['Floor', 'Wall'],
       suitableSpaces: newSurface.suitableSpaces || ['living-room', 'bathroom'],
       priceSqFtEstimate: newSurface.priceSqFtEstimate !== undefined ? newSurface.priceSqFtEstimate : `₹${newSurface.unitPrice || 175} / sq.ft`,
-      priceBand: newSurface.priceBand || 'Premium Range',
+      priceBand: newSurface.priceBand || 'Premium Quality',
       priceType: 'quote',
       waterAbsorption: newSurface.waterAbsorption || '< 0.02%',
       peiRating: 4,

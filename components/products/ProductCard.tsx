@@ -108,7 +108,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, featured = fa
               {(product as any).priceSqFtEstimate ? 'Starting from' : 'Guide Price'}
             </span>
             <span className="text-sm font-semibold text-[#E8D6C0] font-mono">
-              {(product as any).priceSqFtEstimate || ((product as any).priceBand ? (product as any).priceBand : 'By Quotation')}
+              {(product as any).priceSqFtEstimate || ((product as any).priceBand ? ((product as any).priceBand === 'Premium Range' ? 'Premium Quality' : (product as any).priceBand) : 'By Quotation')}
             </span>
           </div>
 

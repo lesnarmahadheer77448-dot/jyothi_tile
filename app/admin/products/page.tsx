@@ -133,7 +133,7 @@ export default function AdminProductsManagerPage() {
     addProduct({
       ...formData,
       priceSqFtEstimate,
-      priceBand: 'Premium Range',
+      priceBand: 'Premium Quality',
     });
 
     setIsAddModalOpen(false);
@@ -355,7 +355,10 @@ export default function AdminProductsManagerPage() {
                 const isInStock = 'inStock' in item ? Boolean(item.inStock) : true;
                 const currentStock = item.stockQuantityBoxes !== undefined ? `${item.stockQuantityBoxes} Boxes` : `${item.stockQuantitySlabs} Slabs`;
                 const isLow = (item.stockQuantityBoxes || item.stockQuantitySlabs || 0) <= (item.minThreshold || 30);
-                const price = item.priceSqFtEstimate || item.priceBand;
+                let price = item.priceSqFtEstimate || item.priceBand;
+                if (price === 'Premium Range') {
+                  price = 'Premium Quality';
+                }
 
                 return (
                   <tr key={item.id} className="hover:bg-white/[0.02] transition-colors">
