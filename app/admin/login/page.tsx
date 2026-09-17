@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@jyothitiles.com"
+                placeholder="admin@domain.com"
                 className="w-full pl-10 pr-4 py-3 bg-[#161620] border border-[#29293C] rounded-xl text-white font-mono focus:outline-none focus:border-[#C5A880]"
               />
             </div>

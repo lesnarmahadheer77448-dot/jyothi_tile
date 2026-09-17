@@ -4,10 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Flame, ShieldCheck, Layers, Maximize2, Sparkles } from 'lucide-react';
-import { graniteData } from '@/data/granite';
+import { useAdminData } from '@/context/AdminDataContext';
 import { ProductCard } from '@/components/products/ProductCard';
 
 export default function GraniteAtelierPage() {
+  const { products } = useAdminData();
+  const graniteData = products.filter(p => p.category === 'granite');
   return (
     <div className="pt-28 pb-24 bg-[#0A0A0C] text-[#EDE9E1] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

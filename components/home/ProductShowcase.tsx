@@ -3,13 +3,14 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, SlidersHorizontal } from 'lucide-react';
-import { productsData } from '@/data/products';
+import { useAdminData } from '@/context/AdminDataContext';
 import { ProductCard } from '../products/ProductCard';
 
 export const ProductShowcase: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'marble' | 'stone' | 'slabs'>('all');
+  const { products } = useAdminData();
 
-  const filteredProducts = productsData.filter((p) => {
+  const filteredProducts = products.filter((p) => {
     if (activeTab === 'marble') return p.collectionId === 'the-marble-edit';
     if (activeTab === 'stone') return p.collectionId === 'the-stone-collection';
     if (activeTab === 'slabs') return p.category === 'slabs';

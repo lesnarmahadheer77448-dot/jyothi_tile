@@ -4,10 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ShieldCheck, Flame, Layers, Maximize2 } from 'lucide-react';
-import { graniteData } from '@/data/granite';
+import { useAdminData } from '@/context/AdminDataContext';
+import { graniteData as staticGraniteData } from '@/data/granite';
 
 export const GraniteSpotlight: React.FC = () => {
-  const featuredGranite = graniteData[0]; // Titanium Gold Leather Granite
+  const { products } = useAdminData();
+  const graniteList = products.filter(p => p.category === 'granite');
+  const graniteData = graniteList.length > 0 ? graniteList : staticGraniteData;
+  const featuredGranite = graniteData[0] || staticGraniteData[0]; // Titanium Gold Leather Granite
 
   return (
     <section className="py-24 bg-[#070709] border-t border-[#1C1C22]">
@@ -17,7 +21,7 @@ export const GraniteSpotlight: React.FC = () => {
           <div className="lg:col-span-7 relative group">
             <div className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-[#2B2B36] bg-black shadow-2xl">
               <Image
-                src={featuredGranite.fullSlabImage}
+                src={(featuredGranite as any).fullSlabImage || featuredGranite.mainImage}
                 alt={featuredGranite.name}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -36,7 +40,7 @@ export const GraniteSpotlight: React.FC = () => {
               {/* Current Quarry Batch */}
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs font-mono text-[#C4BFB5]">
                 <span>Origin: {featuredGranite.origin}</span>
-                <span className="text-[#C5A880]">{featuredGranite.currentBatchBlocks[0]}</span>
+                <span className="text-[#C5A880]">{featuredGranite.currentBatchBlocks?.[0]}</span>
               </div>
             </div>
           </div>
@@ -62,7 +66,7 @@ export const GraniteSpotlight: React.FC = () => {
                 <span className="text-[10px] uppercase font-mono tracking-wider text-[#737068]">Heat Threshold</span>
                 <p className="text-xs font-medium text-white flex items-center gap-1.5">
                   <Flame className="w-3.5 h-3.5 text-[#C5A880]" />
-                  <span>{featuredGranite.heatResistance}</span>
+                  <span>{(featuredGranite as any).heatResistance || 'Up to 350°C'}</span>
                 </p>
               </div>
               <div className="space-y-1">
@@ -71,7 +75,7 @@ export const GraniteSpotlight: React.FC = () => {
               </div>
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-mono tracking-wider text-[#737068]">Density</span>
-                <p className="text-xs font-medium text-white">{featuredGranite.density}</p>
+                <p className="text-xs font-medium text-white">{(featuredGranite as any).density || '2750 kg/m³'}</p>
               </div>
               <div className="space-y-1">
                 <span className="text-[10px] uppercase font-mono tracking-wider text-[#737068]">Water Absorption</span>

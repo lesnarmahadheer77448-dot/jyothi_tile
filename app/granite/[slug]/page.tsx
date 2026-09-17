@@ -30,9 +30,9 @@ interface GraniteDetailPageProps {
 
 export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
   const { slug } = use(params);
-  const { addWhatsAppEnquiry } = useAdminData();
+  const { products, addWhatsAppEnquiry } = useAdminData();
 
-  const granite = graniteData.find((g) => g.slug === slug);
+  const granite = products.find((g) => g.slug === slug && g.category === 'granite');
 
   if (!granite) {
     notFound();
@@ -58,7 +58,7 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
     const message = `Hello Jyothi Tiles Atelier,%0A%0AI am inspecting the *${encodeURIComponent(
       granite.name
     )}* Natural Granite Slab (SKU: ${granite.sku}, Origin: ${encodeURIComponent(
-      granite.origin
+      granite.origin || ''
     )}) on your digital showroom:%0A${encodeURIComponent(window.location.href)}%0A%0APlease check current block slab inventory, slab thickness options, and provide a quotation.`;
     window.open(`https://wa.me/919626547707?text=${message}`, '_blank');
   };
@@ -80,7 +80,7 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
           {/* Left Column: Full-Slab Zoom Viewer & Geology (7 Cols) */}
           <div className="lg:col-span-7 space-y-10">
             {/* Slab Viewer */}
-            <SlabZoomViewer granite={granite} />
+            <SlabZoomViewer granite={granite as any} />
 
             {/* Geological Origin & Narrative */}
             <div className="bg-[#121217] border border-[#262632] rounded-2xl p-6 sm:p-8 space-y-4">
@@ -88,7 +88,7 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
                 GEOLOGICAL PROFILE & CHARACTER
               </span>
               <h3 className="font-serif-luxury text-2xl text-white font-light">
-                {granite.editorialNotes}
+                {granite.editorialQuote || (granite as any).editorialNotes}
               </h3>
               <p className="text-xs sm:text-sm text-[#A09C92] font-light leading-relaxed">
                 {granite.description}
@@ -107,15 +107,15 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
                 </div>
                 <div className="p-3 bg-[#181820] rounded-lg border border-[#242430]">
                   <span className="text-[#88857C] block text-[10px] uppercase font-mono">Compressive Strength</span>
-                  <span className="text-[#C5A880] font-mono font-medium">{granite.compressiveStrength}</span>
+                  <span className="text-[#C5A880] font-mono font-medium">{(granite as any).compressiveStrength || 'N/A'}</span>
                 </div>
                 <div className="p-3 bg-[#181820] rounded-lg border border-[#242430]">
                   <span className="text-[#88857C] block text-[10px] uppercase font-mono">Specific Density</span>
-                  <span className="text-white font-mono font-medium">{granite.density}</span>
+                  <span className="text-white font-mono font-medium">{(granite as any).density || '2750 kg/m³'}</span>
                 </div>
                 <div className="p-3 bg-[#181820] rounded-lg border border-[#242430]">
                   <span className="text-[#88857C] block text-[10px] uppercase font-mono">Thermal Threshold</span>
-                  <span className="text-white font-mono font-medium">{granite.heatResistance}</span>
+                  <span className="text-white font-mono font-medium">{(granite as any).heatResistance || 'Up to 350°C'}</span>
                 </div>
               </div>
             </div>
@@ -144,7 +144,7 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
                   <span className="text-lg font-serif-luxury text-[#E5D2B8] font-semibold">{granite.priceBand}</span>
                 </div>
                 <span className="text-[10px] font-mono bg-[#C5A880]/20 text-[#C5A880] px-2.5 py-1 rounded border border-[#C5A880]/40">
-                  {granite.currentBatchBlocks[0].split('(')[0]}
+                  {granite.currentBatchBlocks?.[0]?.split('(')[0] || 'Block A'}
                 </span>
               </div>
 
@@ -154,7 +154,7 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
                   Available Slab Finishes:
                 </span>
                 <div className="flex flex-wrap gap-2">
-                  {granite.finishesAvailable.map((f) => (
+                  {granite.finishesAvailable?.map((f) => (
                     <span
                       key={f}
                       className="px-3 py-1 bg-[#181820] border border-[#272734] rounded-lg text-xs font-mono text-[#DDD9CF]"
@@ -168,7 +168,7 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
               {/* Primary Actions */}
               <div className="space-y-3">
                 <button
-                  onClick={() => openQuoteModal(granite)}
+                  onClick={() => openQuoteModal(granite as any)}
                   className="w-full py-4 bg-[#C5A880] hover:bg-[#D6BC97] text-black font-semibold text-xs tracking-widest uppercase rounded-lg shadow-xl shadow-[#C5A880]/20 transition-all duration-200"
                 >
                   Request Slab Lot Quotation
@@ -186,7 +186,7 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
               {/* Secondary Actions */}
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <button
-                  onClick={() => toggleWishlist(granite)}
+                  onClick={() => toggleWishlist(granite as any)}
                   className={`p-3 rounded-lg border text-center text-xs font-mono flex items-center justify-center gap-1.5 transition-colors ${
                     isSaved
                       ? 'bg-red-500/20 text-red-400 border-red-500/40'
@@ -198,7 +198,7 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
                 </button>
 
                 <button
-                  onClick={() => (isCompared ? removeFromCompare(granite.id) : addToCompare(granite))}
+                  onClick={() => (isCompared ? removeFromCompare(granite.id) : addToCompare(granite as any))}
                   className={`p-3 rounded-lg border text-center text-xs font-mono flex items-center justify-center gap-1.5 transition-colors ${
                     isCompared
                       ? 'bg-[#C5A880]/20 text-[#C5A880] border-[#C5A880]/50'

@@ -4,8 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { collectionsData } from '@/data/collections';
-import { spacesData } from '@/data/spaces';
+import { useAdminData } from '@/context/AdminDataContext';
+import { collectionsData as staticCollections } from '@/data/collections';
+import { spacesData as staticSpaces } from '@/data/spaces';
 
 interface MegaMenuProps {
   type: 'collections' | 'spaces';
@@ -13,6 +14,10 @@ interface MegaMenuProps {
 }
 
 export const MegaMenu: React.FC<MegaMenuProps> = ({ type, onClose }) => {
+  const { collections: adminCollections, spaces: adminSpaces } = useAdminData();
+  const collectionsData = adminCollections.length > 0 ? adminCollections : staticCollections;
+  const spacesData = adminSpaces.length > 0 ? adminSpaces : staticSpaces;
+
   if (type === 'collections') {
     return (
       <div className="w-[880px] bg-[#121216]/95 border border-[#27272F] backdrop-blur-2xl rounded-xl p-6 shadow-2xl animate-fade-in-scale">

@@ -4,9 +4,13 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Sparkles, Gem } from 'lucide-react';
-import { collectionsData } from '@/data/collections';
+import { useAdminData } from '@/context/AdminDataContext';
+import { collectionsData as staticCollections } from '@/data/collections';
 
 export const CuratedCollections: React.FC = () => {
+  const { collections: adminCollections } = useAdminData();
+  const collectionsData = adminCollections.length > 0 ? adminCollections : staticCollections;
+  
   return (
     <section className="py-24 bg-[#0A0A0C] border-y border-[#1C1C22]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

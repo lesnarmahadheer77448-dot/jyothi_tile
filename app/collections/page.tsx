@@ -4,9 +4,13 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Layers, Sparkles } from 'lucide-react';
-import { collectionsData } from '@/data/collections';
+import { useAdminData } from '@/context/AdminDataContext';
+import { collectionsData as staticCollections } from '@/data/collections';
 
 export default function CollectionsPage() {
+  const { collections: adminCollections } = useAdminData();
+  const collectionsData = adminCollections.length > 0 ? adminCollections : staticCollections;
+  
   return (
     <div className="pt-28 pb-24 bg-[#0D0D0F] text-[#EDE9E1] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
