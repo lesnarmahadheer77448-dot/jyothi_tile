@@ -22,7 +22,8 @@ import {
   ShieldCheck,
   ChevronRight,
   ArrowRight,
-  AlertTriangle
+  AlertTriangle,
+  MonitorPlay
 } from 'lucide-react';
 import { useAdminData } from '@/context/AdminDataContext';
 import { useAuth } from '@/context/AuthContext';
@@ -91,13 +92,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const navItems = [
     { name: 'Dashboard Overview', href: '/admin', icon: LayoutDashboard },
+    { name: 'Hero / Homepage', href: '/admin/hero', icon: MonitorPlay },
     { name: 'Product Catalog', href: '/admin/products', icon: Package, badge: products.length },
-    { name: 'Stock & Warehouse', href: '/admin/stock', icon: Boxes, alert: lowStockItems.length > 0 ? lowStockItems.length : undefined },
     { name: 'Categories & Edit', href: '/admin/categories', icon: Tags, badge: collections.length },
     { name: 'Space Images', href: '/admin/spaces', icon: Sparkles },
-    { name: 'Billing & POS Invoices', href: '/admin/billing', icon: Receipt, badge: invoices.length },
-    { name: 'Sales & Analytics', href: '/admin/sales', icon: TrendingUp },
-    { name: 'Enquiries & CRM', href: '/admin/enquiries', icon: MessageSquare },
   ];
 
   // If on admin login page, render page directly

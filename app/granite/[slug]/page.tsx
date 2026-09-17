@@ -22,6 +22,7 @@ import { ProductCard } from '@/components/products/ProductCard';
 import { useWishlist } from '@/context/WishlistContext';
 import { useCompare } from '@/context/CompareContext';
 import { useQuote } from '@/context/QuoteContext';
+import { useAdminData } from '@/context/AdminDataContext';
 
 interface GraniteDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -29,6 +30,7 @@ interface GraniteDetailPageProps {
 
 export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
   const { slug } = use(params);
+  const { addWhatsAppEnquiry } = useAdminData();
 
   const granite = graniteData.find((g) => g.slug === slug);
 
@@ -44,6 +46,15 @@ export default function GraniteDetailPage({ params }: GraniteDetailPageProps) {
   const isCompared = isInCompare(granite.id);
 
   const handleWhatsAppEnquiry = () => {
+    // Record the enquiry in the admin dashboard
+    addWhatsAppEnquiry({
+      productId: granite.id,
+      productName: granite.name,
+      productSku: granite.sku,
+      productImage: granite.mainImage,
+      source: 'granite_page'
+    });
+
     const message = `Hello Jyothi Tiles Atelier,%0A%0AI am inspecting the *${encodeURIComponent(
       granite.name
     )}* Natural Granite Slab (SKU: ${granite.sku}, Origin: ${encodeURIComponent(

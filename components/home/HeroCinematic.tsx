@@ -16,6 +16,7 @@ import {
   Maximize2
 } from 'lucide-react';
 import { useQuote } from '@/context/QuoteContext';
+import { useAdminData } from '@/context/AdminDataContext';
 
 interface HeroScene {
   id: string;
@@ -105,6 +106,9 @@ const HERO_SCENES: HeroScene[] = [
 const SCENE_DURATION_MS = 6500;
 
 export const HeroCinematic: React.FC = () => {
+  const { heroScenes } = useAdminData();
+  const activeScenes = heroScenes && heroScenes.length > 0 ? heroScenes : HERO_SCENES;
+
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -122,11 +126,11 @@ export const HeroCinematic: React.FC = () => {
   };
 
   const nextScene = () => {
-    goToScene((currentSceneIndex + 1) % HERO_SCENES.length);
+    goToScene((currentSceneIndex + 1) % activeScenes.length);
   };
 
   const prevScene = () => {
-    goToScene((currentSceneIndex - 1 + HERO_SCENES.length) % HERO_SCENES.length);
+    goToScene((currentSceneIndex - 1 + activeScenes.length) % activeScenes.length);
   };
 
   // Timer & progress bar loop (Emaar style continuous tracker)
@@ -175,43 +179,50 @@ export const HeroCinematic: React.FC = () => {
     });
   }, [currentSceneIndex, isPlaying]);
 
-  const currentScene = HERO_SCENES[currentSceneIndex];
+  const currentScene = activeScenes[currentSceneIndex] || activeScenes[0];
 
   return (
     <section className="relative h-screen min-h-[700px] w-full flex flex-col justify-between overflow-hidden bg-black text-white">
       {/* Background Video / Visual Layer with Emaar Cinematic Crossfade */}
       <div className="absolute inset-0 z-0">
-        {HERO_SCENES.map((scene, idx) => {
+        {activeScenes.map((scene, idx) => {
           const isActive = idx === currentSceneIndex;
           return (
             <div
               key={scene.id}
-              className={`absolute inset-0 transition-all duration-[1200ms] ease-in-out ${
-                isActive ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-105 pointer-events-none'
+              className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
               }`}
             >
-              {/* HTML5 Video Layer */}
-              {scene.videoUrl && (
-                <video
-                  ref={(el) => { videoRefs.current[idx] = el; }}
-                  src={scene.videoUrl}
-                  poster={scene.fallbackImage}
-                  muted
-                  playsInline
-                  loop
-                  preload="auto"
-                  className="absolute inset-0 w-full h-full object-cover object-center brightness-70"
-                />
-              )}
+              {/* Inner container for Ken Burns effect */}
+              <div
+                className={`absolute inset-0 w-full h-full transform transition-transform duration-[10000ms] ease-linear ${
+                  isActive ? 'scale-[1.15]' : 'scale-100'
+                }`}
+              >
+                {/* HTML5 Video Layer */}
+                {scene.videoUrl && (
+                  <video
+                    ref={(el) => { videoRefs.current[idx] = el; }}
+                    src={scene.videoUrl}
+                    poster={scene.fallbackImage}
+                    muted
+                    playsInline
+                    loop
+                    preload="auto"
+                    className="absolute inset-0 w-full h-full object-cover object-center brightness-70"
+                  />
+                )}
 
-              {/* High-Resolution Fallback Poster */}
-              <Image
-                src={scene.fallbackImage}
-                alt={scene.headlineLine1}
-                fill
-                priority={idx === 0}
-                className={`object-cover object-center brightness-60 -z-10 ${scene.videoUrl ? 'hidden md:block' : 'block'}`}
-              />
+                {/* High-Resolution Fallback Poster */}
+                <Image
+                  src={scene.fallbackImage}
+                  alt={scene.headlineLine1}
+                  fill
+                  priority={idx === 0}
+                  className={`object-cover object-center brightness-60 -z-10 ${scene.videoUrl ? 'hidden md:block' : 'block'}`}
+                />
+              </div>
 
               {/* Emaar Multilayer Gradient Film Scrim */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C] via-black/35 to-black/60" />

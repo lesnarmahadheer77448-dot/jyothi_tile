@@ -118,6 +118,43 @@ export interface StockAdjustmentLog {
   timestamp: string;
 }
 
+export interface HeroScene {
+  id: string;
+  tag: string;
+  tabLabel: string;
+  headlineLine1: string;
+  headlineLine2: string;
+  description: string;
+  videoUrl?: string;
+  fallbackImage: string;
+  specs: { label: string; value: string }[];
+  ctaText: string;
+  ctaLink: string;
+}
+
+export interface WhatsAppEnquiry {
+  id: string;
+  productId: string;
+  productName: string;
+  productSku: string;
+  productImage: string;
+  source: string;
+  timestamp: string;
+  status: 'New' | 'Contacted' | 'Closed';
+}
+
+export interface CallbackRequest {
+  id: string;
+  customerName: string;
+  phone: string;
+  city: string;
+  projectType: string;
+  notes: string;
+  itemsSummary: string;
+  timestamp: string;
+  status: 'New' | 'Contacted' | 'Closed';
+}
+
 interface AdminDataContextType {
   // Products
   products: UnifiedSurface[];
@@ -141,6 +178,10 @@ interface AdminDataContextType {
   updateSpaceImage: (id: string, imageUrl: string) => void;
   deleteSpaceImage: (id: string) => void;
 
+  // Hero Slider
+  heroScenes: HeroScene[];
+  updateHeroScene: (id: string, updatedFields: Partial<HeroScene>) => void;
+
   // Billing & Invoices
   invoices: Invoice[];
   createInvoice: (invoiceData: Omit<Invoice, 'id' | 'invoiceNumber' | 'date'>) => Invoice;
@@ -152,6 +193,16 @@ interface AdminDataContextType {
   totalSqFtSold: number;
   lowStockItems: UnifiedSurface[];
   totalInvoicesCount: number;
+
+  // WhatsApp Enquiries
+  whatsappEnquiries: WhatsAppEnquiry[];
+  addWhatsAppEnquiry: (enquiry: Omit<WhatsAppEnquiry, 'id' | 'timestamp' | 'status'>) => void;
+  updateWhatsAppEnquiryStatus: (id: string, status: WhatsAppEnquiry['status']) => void;
+
+  // Callback Requests
+  callbackRequests: CallbackRequest[];
+  addCallbackRequest: (request: Omit<CallbackRequest, 'id' | 'timestamp' | 'status'>) => void;
+  updateCallbackRequestStatus: (id: string, status: CallbackRequest['status']) => void;
 }
 
 const AdminDataContext = createContext<AdminDataContextType | undefined>(undefined);
@@ -162,6 +213,9 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [spaces, setSpaces] = useState<SpaceMetadata[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [stockLogs, setStockLogs] = useState<StockAdjustmentLog[]>([]);
+  const [heroScenes, setHeroScenes] = useState<HeroScene[]>([]);
+  const [whatsappEnquiries, setWhatsappEnquiries] = useState<WhatsAppEnquiry[]>([]);
+  const [callbackRequests, setCallbackRequests] = useState<CallbackRequest[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Firestore Seeding Logic
@@ -208,6 +262,86 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     const batch = writeBatch(db);
     defaultSpaces.forEach(s => {
       const docRef = doc(db, 'spaces', s.id);
+      batch.set(docRef, s);
+    });
+    await batch.commit();
+  };
+
+  const seedHeroScenes = async () => {
+    const defaultHeroScenes: HeroScene[] = [
+      {
+        id: 'monumental-slabs',
+        tag: 'THE ARCHITECTURAL EDIT',
+        tabLabel: '01 MONUMENTAL SLABS',
+        headlineLine1: 'JYOTHI TILES',
+        headlineLine2: 'SURFACES THAT DEFINE SPACE',
+        description: 'Transforming luxury residences with 120×240 cm sintered stone slabs, 12-layer nano-mirror gloss, and bookmatch precision.',
+        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-modern-living-room-with-large-windows-and-marble-floor-41484-large.mp4',
+        fallbackImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=85&w=2400&auto=format&fit=crop',
+        specs: [
+          { label: 'MAX FORMAT', value: '120 × 240 CM' },
+          { label: 'WATER ABSORPTION', value: '< 0.02%' },
+          { label: 'SURFACES IN STOCK', value: '12,000+' }
+        ],
+        ctaText: 'EXPLORE COLLECTIONS',
+        ctaLink: '/products',
+      },
+      {
+        id: 'exotic-granite',
+        tag: 'NATURAL STONE ATELIER',
+        tabLabel: '02 EXOTIC GRANITE',
+        headlineLine1: 'RAW EARTH MONOLITHS',
+        headlineLine2: 'BILLION-YEAR CHARACTER',
+        description: 'Direct quarry shipments of Titanium Gold, Patagonia Quartzite, and Black Galaxy. 350°C thermal resistance for statement kitchen islands.',
+        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-modern-kitchen-with-large-marble-countertop-41487-large.mp4',
+        fallbackImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=85&w=2400&auto=format&fit=crop',
+        specs: [
+          { label: 'SLAB DIMENSIONS', value: '320 × 195 CM' },
+          { label: 'THICKNESS', value: '18 / 20 / 30 MM' },
+          { label: 'HEAT RESISTANCE', value: 'UP TO 350°C' }
+        ],
+        ctaText: 'VIEW GRANITE SLABS',
+        ctaLink: '/granite',
+      },
+      {
+        id: 'wellness-spa',
+        tag: 'TACTILE WELLNESS SPAS',
+        tabLabel: '03 CARVED & FLUTED',
+        headlineLine1: 'WHISPER-QUIET LUXURY',
+        headlineLine2: '3D TACTILE SANCTUARIES',
+        description: 'Fluted carving porcelain and silk-matte travertines engineered for five-star private bath spas and master suites.',
+        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-modern-luxury-bathroom-interior-41486-large.mp4',
+        fallbackImage: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=85&w=2400&auto=format&fit=crop',
+        specs: [
+          { label: 'SLIP RESISTANCE', value: 'R10 / R11 RATED' },
+          { label: 'ANTI-MICROBIAL', value: 'ZERO POROSITY' },
+          { label: 'TEXTURES', value: '3D FLUTED & SILK' }
+        ],
+        ctaText: 'EXPLORE SURFACES',
+        ctaLink: '/products',
+      },
+      {
+        id: 'facades-outdoor',
+        tag: 'EXTERIOR & LANDSCAPE',
+        tabLabel: '04 OUTDOOR & FACADES',
+        headlineLine1: 'WEATHERPROOF GRANDEUR',
+        headlineLine2: 'ENDURING ACROSS GENERATIONS',
+        description: 'UV-stable, frost-proof vitrified surfaces and rugged Ceppo di Gré textures designed for monsoon rains, pool coping, and modern facades.',
+        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-modern-house-exterior-with-swimming-pool-41485-large.mp4',
+        fallbackImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=85&w=2400&auto=format&fit=crop',
+        specs: [
+          { label: 'DURABILITY', value: 'PEI-5 HIGH TRAFFIC' },
+          { label: 'UV STABILITY', value: '100% COLOR RETENTION' },
+          { label: 'WARRANTY', value: '10-YEAR ASSURANCE' }
+        ],
+        ctaText: 'SHOP THE LOOK',
+        ctaLink: '/shop-the-look',
+      },
+    ];
+
+    const batch = writeBatch(db);
+    defaultHeroScenes.forEach(s => {
+      const docRef = doc(db, 'heroScenes', s.id);
       batch.set(docRef, s);
     });
     await batch.commit();
@@ -300,6 +434,26 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       }
     });
 
+    const unsubHeroScenes = onSnapshot(collection(db, 'heroScenes'), (snapshot) => {
+      if (!snapshot.empty) {
+        setHeroScenes(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as HeroScene[]);
+      } else {
+        seedHeroScenes();
+      }
+    });
+
+    const unsubEnquiries = onSnapshot(collection(db, 'whatsappEnquiries'), (snapshot) => {
+      if (!snapshot.empty) {
+        setWhatsappEnquiries(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as WhatsAppEnquiry[]);
+      }
+    });
+
+    const unsubCallbacks = onSnapshot(collection(db, 'callbackRequests'), (snapshot) => {
+      if (!snapshot.empty) {
+        setCallbackRequests(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as CallbackRequest[]);
+      }
+    });
+
     setIsLoaded(true);
 
     return () => {
@@ -308,6 +462,9 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       unsubSpaces();
       unsubInvoices();
       unsubLogs();
+      unsubHeroScenes();
+      unsubEnquiries();
+      unsubCallbacks();
     };
   }, []);
 
@@ -457,6 +614,11 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     await setDoc(doc(db, 'spaces', id), { heroImage: '' }, { merge: true });
   };
 
+  // Hero Actions
+  const updateHeroScene = async (id: string, updatedFields: Partial<HeroScene>) => {
+    await setDoc(doc(db, 'heroScenes', id), updatedFields, { merge: true });
+  };
+
   // Billing Actions
   const createInvoice = (invoiceData: Omit<Invoice, 'id' | 'invoiceNumber' | 'date'>) => {
     const seq = 1080 + invoices.length + 1;
@@ -500,6 +662,36 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const totalInvoicesCount = invoices.length;
 
+  const addWhatsAppEnquiry = async (enquiry: Omit<WhatsAppEnquiry, 'id' | 'timestamp' | 'status'>) => {
+    const id = `enq-${Date.now()}`;
+    const newEnquiry: WhatsAppEnquiry = {
+      ...enquiry,
+      id,
+      timestamp: new Date().toISOString(),
+      status: 'New',
+    };
+    await setDoc(doc(db, 'whatsappEnquiries', id), newEnquiry);
+  };
+
+  const updateWhatsAppEnquiryStatus = async (id: string, status: WhatsAppEnquiry['status']) => {
+    await setDoc(doc(db, 'whatsappEnquiries', id), { status }, { merge: true });
+  };
+
+  const addCallbackRequest = async (request: Omit<CallbackRequest, 'id' | 'timestamp' | 'status'>) => {
+    const id = `cb-${Date.now()}`;
+    const newRequest: CallbackRequest = {
+      ...request,
+      id,
+      timestamp: new Date().toISOString(),
+      status: 'New',
+    };
+    await setDoc(doc(db, 'callbackRequests', id), newRequest);
+  };
+
+  const updateCallbackRequestStatus = async (id: string, status: CallbackRequest['status']) => {
+    await setDoc(doc(db, 'callbackRequests', id), { status }, { merge: true });
+  };
+
   return (
     <AdminDataContext.Provider
       value={{
@@ -517,6 +709,8 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         spaces,
         updateSpaceImage,
         deleteSpaceImage,
+        heroScenes,
+        updateHeroScene,
         invoices,
         createInvoice,
         updateInvoiceStatus,
@@ -525,6 +719,12 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         totalSqFtSold,
         lowStockItems,
         totalInvoicesCount,
+        whatsappEnquiries,
+        addWhatsAppEnquiry,
+        updateWhatsAppEnquiryStatus,
+        callbackRequests,
+        addCallbackRequest,
+        updateCallbackRequestStatus,
       }}
     >
       {children}

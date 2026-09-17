@@ -53,11 +53,15 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
+        {/* Legal Disclaimer */}
+        <div className="pt-8 text-center sm:text-left text-[10px] text-[#636058] max-w-4xl leading-relaxed">
+          <strong>Legal Disclaimer:</strong> All product images, website graphics, and showroom photographs displayed on this digital platform are for representational and aesthetic purposes only. Because natural stone (including granite and marble) and vitrified porcelain are subject to natural and manufacturing variations, the actual physical shades, veining, patterns, and textures of the materials may differ slightly from these digital renderings. We highly recommend verifying the material in our physical experience centres or requesting a physical sample prior to final specification and purchase.
+        </div>
+
         {/* Bottom copyright & disclaimer */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#737068]">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#737068]">
           <p>© {new Date().getFullYear()} Jyothi Tiles & Natural Stone Atelier. All architectural rights reserved.</p>
           <div className="flex items-center space-x-6">
-            <Link href="/admin" className="hover:text-[#C5A880] transition-colors">Admin Dashboard</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Specification</Link>
           </div>

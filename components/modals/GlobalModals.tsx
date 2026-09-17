@@ -5,11 +5,13 @@ import Image from 'next/image';
 import { X, Check, MessageSquare, Phone, Calendar, Sparkles, Send, User } from 'lucide-react';
 import { useQuote } from '@/context/QuoteContext';
 import { useAuth } from '@/context/AuthContext';
+import { useAdminData } from '@/context/AdminDataContext';
 import AuthModal from '@/components/auth/AuthModal';
 
 export const GlobalModals: React.FC = () => {
   const { isQuoteModalOpen, closeQuoteModal, quoteItems, totalEstimatedArea, removeFromQuote } = useQuote();
   const { currentUser, requireAuth } = useAuth();
+  const { addCallbackRequest } = useAdminData();
 
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
@@ -30,22 +32,19 @@ export const GlobalModals: React.FC = () => {
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Enquiry Auth Gate: Customer must be logged in
-    requireAuth(() => {
-      const itemsSummary = quoteItems.length > 0
-        ? quoteItems.map((item, idx) => `• ${item.name} (${item.sku}) - ~${item.areaSqFt} sq.ft`).join('%0A')
-        : 'General Inquiry / Material Selection';
+    const itemsSummary = quoteItems.length > 0
+      ? quoteItems.map((item, idx) => `• ${item.name} (${item.sku}) - ~${item.areaSqFt} sq.ft`).join('%0A')
+      : 'General Inquiry / Material Selection';
 
-      const clientDisplay = currentUser ? `${currentUser.name} (${currentUser.role.toUpperCase()})` : fullName;
-      const phoneDisplay = currentUser ? currentUser.phone : phone;
+    const clientDisplay = currentUser ? `${currentUser.name} (${currentUser.role.toUpperCase()})` : fullName;
+    const phoneDisplay = currentUser ? currentUser.phone : phone;
 
-      const message = `*NEW LUXURY SPECIFICATION ENQUIRY*%0A%0A*Client Name:* ${encodeURIComponent(clientDisplay)}%0A*Phone:* ${encodeURIComponent(phoneDisplay)}%0A*Location:* ${encodeURIComponent(city)}%0A*Project Type:* ${encodeURIComponent(projectType)}%0A*Estimated Total Area:* ~${totalEstimatedArea || 500} sq.ft%0A%0A*Selected Materials:*%0A${itemsSummary}%0A%0A*Client Notes:* ${encodeURIComponent(notes || 'Please share detailed quotation with tax invoice and sample availability.')}`;
+    const message = `*NEW LUXURY SPECIFICATION ENQUIRY*%0A%0A*Client Name:* ${encodeURIComponent(clientDisplay)}%0A*Phone:* ${encodeURIComponent(phoneDisplay)}%0A*Location:* ${encodeURIComponent(city)}%0A*Project Type:* ${encodeURIComponent(projectType)}%0A*Estimated Total Area:* ~${totalEstimatedArea || 500} sq.ft%0A%0A*Selected Materials:*%0A${itemsSummary}%0A%0A*Client Notes:* ${encodeURIComponent(notes || 'Please share detailed quotation with tax invoice and sample availability.')}`;
 
-      setIsSubmitted(true);
-      setTimeout(() => {
-        window.open(`https://wa.me/919626547707?text=${message}`, '_blank');
-      }, 600);
-    });
+    setIsSubmitted(true);
+    setTimeout(() => {
+      window.open(`https://wa.me/919626547707?text=${message}`, '_blank');
+    }, 600);
   };
 
   return (
@@ -226,10 +225,21 @@ export const GlobalModals: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        requireAuth(() => {
-                          alert('Thank you! A senior specialist has logged your request and will call within 2 business hours.');
-                          closeQuoteModal();
+                        const itemsSummary = quoteItems.length > 0
+                          ? quoteItems.map(item => `${item.name} (${item.sku}) - ~${item.areaSqFt} sq.ft`).join(', ')
+                          : 'General Inquiry';
+                          
+                        addCallbackRequest({
+                          customerName: currentUser ? `${currentUser.name} (${currentUser.role})` : (fullName || 'Unknown'),
+                          phone: currentUser ? currentUser.phone : (phone || 'Unknown'),
+                          city: city || 'Unknown',
+                          projectType: projectType || 'Unknown',
+                          notes: notes || '',
+                          itemsSummary
                         });
+                        
+                        alert('Thank you! A senior specialist has logged your request and will call within 2 business hours.');
+                        closeQuoteModal();
                       }}
                       className="px-5 py-3.5 bg-[#1E1E24] hover:bg-[#282830] text-[#E0DCD3] text-xs tracking-wider uppercase rounded-lg border border-[#33333C] flex items-center justify-center gap-2 transition-colors"
                     >

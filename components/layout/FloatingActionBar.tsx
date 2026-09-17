@@ -6,10 +6,13 @@ import Image from 'next/image';
 import { Layers, Heart, MessageSquare, X, ArrowRight, Sparkles } from 'lucide-react';
 import { useCompare } from '@/context/CompareContext';
 import { useWishlist } from '@/context/WishlistContext';
+import { usePathname } from 'next/navigation';
 
 export const FloatingActionBar: React.FC = () => {
   const { compareItems, removeFromCompare, clearCompare, isDrawerOpen, setIsDrawerOpen } = useCompare();
   const { wishlist } = useWishlist();
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith('/admin');
 
   return (
     <>
@@ -74,22 +77,24 @@ export const FloatingActionBar: React.FC = () => {
       )}
 
       {/* Floating WhatsApp Concierge Pill */}
-      <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end gap-3">
-        <a
-          href="https://wa.me/919626547707?text=Hello%20Jyothi%20Tiles,%20I%20am%20exploring%20your%20digital%20showroom%20and%20need%20assistance%20with%20material%20selection."
-          target="_blank"
-          rel="noreferrer"
-          className="group flex items-center gap-3 px-4 py-3 bg-[#111114]/90 hover:bg-[#111114] border border-[#25D366]/40 backdrop-blur-xl rounded-full shadow-2xl transition-all duration-300 hover:scale-105"
-        >
-          <div className="flex flex-col text-right hidden sm:flex">
-            <span className="text-[10px] uppercase tracking-wider text-[#A09D95]">Surface Specialist</span>
-            <span className="text-xs font-medium text-white group-hover:text-[#25D366] transition-colors">Direct WhatsApp</span>
-          </div>
-          <div className="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg shadow-[#25D366]/30">
-            <MessageSquare className="w-5 h-5 text-black fill-black" />
-          </div>
-        </a>
-      </div>
+      {!isAdmin && (
+        <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end gap-3">
+          <a
+            href="https://wa.me/919626547707?text=Hello%20Jyothi%20Tiles,%20I%20am%20exploring%20your%20digital%20showroom%20and%20need%20assistance%20with%20material%20selection."
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center gap-3 px-4 py-3 bg-[#111114]/90 hover:bg-[#111114] border border-[#25D366]/40 backdrop-blur-xl rounded-full shadow-2xl transition-all duration-300 hover:scale-105"
+          >
+            <div className="flex flex-col text-right hidden sm:flex">
+              <span className="text-[10px] uppercase tracking-wider text-[#A09D95]">Surface Specialist</span>
+              <span className="text-xs font-medium text-white group-hover:text-[#25D366] transition-colors">Direct WhatsApp</span>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg shadow-[#25D366]/30">
+              <MessageSquare className="w-5 h-5 text-black fill-black" />
+            </div>
+          </a>
+        </div>
+      )}
     </>
   );
 };

@@ -30,7 +30,7 @@ interface ProductDetailPageProps {
 
 export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { slug } = use(params);
-  const { products } = useAdminData();
+  const { products, addWhatsAppEnquiry } = useAdminData();
 
   const product = products.find((p) => p.slug === slug);
 
@@ -62,6 +62,15 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
     : null;
 
   const handleWhatsAppEnquiry = () => {
+    // Record the enquiry in the admin dashboard
+    addWhatsAppEnquiry({
+      productId: product.id,
+      productName: product.name,
+      productSku: product.sku,
+      productImage: product.mainImage,
+      source: 'product_page'
+    });
+
     const message = `Hello Jyothi Tiles Atelier,%0A%0AI am reviewing the *${encodeURIComponent(
       product.name
     )}* (SKU: ${product.sku}, Size: ${product.size}, Finish: ${encodeURIComponent(
