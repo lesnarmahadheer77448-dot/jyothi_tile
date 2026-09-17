@@ -8,7 +8,7 @@ import { ShowroomExperience } from '@/components/home/ShowroomExperience';
 
 export default function HomePage() {
   return (
-    <div className="bg-[#0D0D0F] text-[#F4F1EA] overflow-hidden">
+    <div className="bg-[#0D0D0F] text-[#F4F1EA] overflow-x-hidden">
       {/* 01. Cinematic Hero */}
       <HeroCinematic />
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { X, ArrowRight, MessageSquare, Phone, Sparkles } from 'lucide-react';
+import { X, ArrowRight, MessageSquare, Sparkles } from 'lucide-react';
 import { useQuote } from '@/context/QuoteContext';
 import { useAuth } from '@/context/AuthContext';
 
@@ -14,7 +14,7 @@ interface MobileNavProps {
 
 export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose, navLinks }) => {
   const { openQuoteModal } = useQuote();
-  const { currentUser, logoutCustomer, openAuthModal } = useAuth();
+  const { currentUser, logoutCustomer } = useAuth();
 
   if (!isOpen) return null;
 
@@ -76,13 +76,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose, navLinks 
             </button>
           </div>
         ) : (
-          <Link
-            href="/admin/login"
-            onClick={onClose}
-            className="w-full py-2.5 bg-[#181822] border border-[#2B2B38] text-[#DDD8CE] hover:text-white text-xs font-mono rounded-lg flex items-center justify-center gap-2"
-          >
-            Admin Login
-          </Link>
+          null
         )}
 
         <button

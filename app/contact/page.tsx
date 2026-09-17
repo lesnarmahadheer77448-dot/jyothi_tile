@@ -98,7 +98,7 @@ export default function ContactPage() {
                   </p>
                   <div className="pt-2">
                     <a
-                      href={sr.mapEmbedUrl}
+                      href={sr.mapLinkUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="text-xs font-mono text-[#C5A880] hover:underline uppercase"

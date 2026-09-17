@@ -80,7 +80,7 @@ export const ShowroomExperience: React.FC = () => {
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <a
-                href={showroom.mapEmbedUrl}
+                href="https://maps.app.goo.gl/N5tCYYmKaHVayzHx7"
                 target="_blank"
                 rel="noreferrer"
                 className="px-7 py-3.5 bg-[#17171E] hover:bg-[#202028] border border-[#2B2B36] text-white text-xs font-medium tracking-widest uppercase rounded-sm flex items-center justify-center transition-colors"

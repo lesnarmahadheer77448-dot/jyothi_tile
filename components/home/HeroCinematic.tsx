@@ -265,7 +265,7 @@ export const HeroCinematic: React.FC = () => {
           {/* Primary Action Buttons */}
           <div className="pt-2 flex flex-wrap items-center gap-4">
             <Link
-              href={currentScene.ctaLink}
+              href="/spaces"
               className="px-8 py-4 bg-[#C5A880] hover:bg-[#D6BC97] text-black text-xs font-semibold tracking-[0.25em] uppercase rounded-sm transition-all duration-300 shadow-xl shadow-[#C5A880]/20 flex items-center gap-2 hover:scale-[1.02]"
             >
               <Compass className="w-4 h-4" />

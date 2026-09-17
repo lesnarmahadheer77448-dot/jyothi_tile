@@ -202,6 +202,7 @@ export interface Showroom {
   timings?: string;
   features: string[];
   mapEmbedUrl: string;
+  mapLinkUrl: string;
   heroImage: string;
   interiorImages: string[];
   galleryImages?: string[];

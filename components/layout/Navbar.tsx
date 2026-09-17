@@ -13,8 +13,7 @@ import {
   Compass, 
   ChevronDown,
   ChevronLeft,
-  Sparkles,
-  User
+  Sparkles
 } from 'lucide-react';
 import { useWishlist } from '@/context/WishlistContext';
 import { useCompare } from '@/context/CompareContext';
@@ -26,7 +25,7 @@ import { MobileNav } from './MobileNav';
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { currentUser, logoutCustomer, openAuthModal } = useAuth();
+  const { currentUser, logoutCustomer } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -220,13 +219,7 @@ export const Navbar: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <Link
-                  href="/admin/login"
-                  className="hidden sm:flex items-center gap-1 px-3 py-1.5 text-xs font-mono text-[#DDD8CE] hover:text-white border border-[#2B2B38] hover:border-[#C5A880] rounded-lg transition-colors"
-                >
-                  <User className="w-3.5 h-3.5 text-[#C5A880]" />
-                  <span>Admin Login</span>
-                </Link>
+                null
               )}
 
               {/* Primary Get A Quote Button */}
