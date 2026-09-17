@@ -276,11 +276,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         {item.badge}
                       </span>
                     )}
-                    {item.alert !== undefined && (
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/40">
-                        {item.alert} low
-                      </span>
-                    )}
+
                   </Link>
                 );
               })}
